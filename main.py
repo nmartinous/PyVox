@@ -3,6 +3,7 @@
 from settings import *
 from shader_program import ShaderProgram
 from scene import Scene
+from player import Player
 
 import moderngl as mgl
 import pygame as pg
@@ -51,12 +52,14 @@ class VoxelEngine:
 
     # Runs on initialization of application
     def on_init(self):
+        self.player = Player(self)
         # Create instance of shader program
         self.shader_program = ShaderProgram(self)
         self.scene = Scene(self)
 
     # Update object states
     def update(self):
+        self.player.update()
         # Update shader program
         self.shader_program.update()
         self.scene.update()

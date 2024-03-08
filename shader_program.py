@@ -10,6 +10,8 @@ class ShaderProgram:
         self.app = app
         self.ctx = app.ctx
 
+        self.player = app.player
+
         # ------------------ shaders ------------------ #
         self.quad = self.get_program(shader_name='quad')
         # -------------------------------------------- #
@@ -18,11 +20,12 @@ class ShaderProgram:
 
     # Set uniforms
     def set_uniforms_on_init(self):
-        pass
+        self.quad['m_proj'].write(self.player.m_proj)
+        self.quad['m_model'].write(glm.mat4())
 
     # Update uniforms
     def update(self):
-        pass
+        self.quad['m_view'].write(self.player.m_view)
 
     # Method to load shaders using context manager
     def get_program(self, shader_name):
